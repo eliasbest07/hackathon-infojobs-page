@@ -33,11 +33,10 @@ export default function ShowDetails({ darkMode, jobs, agendar }) {
     } ]
   })
 
-    const medida= window.innerWidth >1000 ? "h-200 ml-10 mr-80 max-w-40 px-2 pr-16 py-8  sm:px-0 sm:pr-20" : " h-200 ml-10 mr-5 max-w-100 px-2 pr-1 py-8  sm:px-0 sm:pr-10";
 
   return (
 
-    <div className={medida} >
+    <div className={"h-200 ml-10 mr-80 max-w-40 px-2 pr-16 py-8  sm:px-0 sm:pr-20"} >
       {/* {description.data? console.log(description.data) : console.log("no hay data")} */}
       <div className="fle-container" >
       <Image alt='campany logo' className="mb-2"  src={jobs.author.logoUrl} height={100} width= {100}  />
