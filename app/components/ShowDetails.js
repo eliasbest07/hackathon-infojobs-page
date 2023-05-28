@@ -2,17 +2,29 @@
 import { useEffect, useState } from 'react'
 import { Tab } from '@headlessui/react'
 import { Text,Metric, Button } from "@tremor/react";
-import useSWR from 'swr';
-import { getDescription } from '../services/getJobs';
 import Image from 'next/image';
 
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
-//const fetcher = (id) => fetch(`/api/description?id=${id}`).then(res => res.json());
 export default function ShowDetails({ darkMode, jobs, agendar }) {
-  // const description = useSWR(jobs.id, fetcher)
+ 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1000);
+    };
+
+    // Call handleResize on mount and on window resize
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    // Clean up the event listener on unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   let [ofertas] = useState({
     Requisitos: [   {
       id: jobs.id,
@@ -33,26 +45,46 @@ export default function ShowDetails({ darkMode, jobs, agendar }) {
     } ]
   })
 
+  const tamanio = isMobile ? "h-200 ml-2 mr-2  px-2 pr-2 py-8  sm:px-0 sm:pr-0" : "h-200 ml-10 mr-80 max-w-40 px-2 pr-16 py-8  sm:px-0 sm:pr-20"
 
   return (
-
-    <div className={"h-200 ml-10 mr-80 max-w-40 px-2 pr-16 py-8  sm:px-0 sm:pr-20"} >
-      {/* {description.data? console.log(description.data) : console.log("no hay data")} */}
-      <div className="fle-container" >
-      <Image alt='campany logo' className="mb-2"  src={jobs.author.logoUrl} height={100} width= {100}  />
-        <div>
-        <Metric className={`ml-3 mt-1 text-inf ${darkMode ? 'text-white' : 'text-black-300' }`}>{jobs.title}</Metric>
-        <div className="flex-container">
-          <Text className={`ml-3 mt-1 text-inf ${darkMode ? 'text-white' : 'text-black-300' }`}>{jobs.author.name}</Text>
+    <div className={tamanio} >     
+      {isMobile ? (
+        <>
+          <div className="flex-container mr-5 max-w-200" >
+          <Image alt='company logo'   src={jobs.author.logoUrl } height={100} width= {100}  />
+             <div className=" space-x-1 rounded-xl mr-5 max-w-400 ">
+                <Metric className={`text-bold ml-3 mt-1 mr-2  ${darkMode ? 'text-white' : 'text-black-300' }`}>{jobs.title}</Metric>
+                <Text className={`ml-3 mt-1 text-inf ${darkMode ? 'text-white' : 'text-black-300' }`}>{jobs.author.name}</Text>
+             </div>
+         </div>
+          <div className="flex-container mb-1 mr-2">
           <Button onClick={(event) => {event.preventDefault (); window.open (jobs.link)}} size="xs" className={`p-2 mb-2 mt-2 ml-5  text-white  ${darkMode ? 'bg-orange-500' : 'bg-colorAzul' }` }>
-            Toda la Información
-          </Button>
-          <Button onClick={agendar} size="xs" className={`p-2 mb-2 mt-2 ml-5 text-white  ${darkMode ? 'bg-orange-500 hover:bg-colorAzul' : 'bg-colorAzul hover:bg-orange-500' }` }>
-            Agendar Entrevista
-          </Button>
-          </div>
-        </div>
-        </div>
+             Toda la Información
+           </Button>
+           <Button onClick={agendar} size="xs" className={`p-2 mb-2 mt-2 ml-5 text-white  ${darkMode ? 'bg-orange-500 hover:bg-colorAzul' : 'bg-colorAzul hover:bg-orange-500' }` }>
+             Agendar Entrevista
+           </Button>
+         </div>
+         </>
+      ) : (
+        <div className="fle-container" >
+        <Image alt='company logo' className="mb-2"  src={jobs.author.logoUrl} height={100} width= {100}  />
+           <div>
+             <Metric className={`ml-3 mt-1 text-inf ${darkMode ? 'text-white' : 'text-black-300' }`}>{jobs.title}</Metric>
+             <div className="flex-container">
+               <Text className={`ml-3 mt-1 text-inf ${darkMode ? 'text-white' : 'text-black-300' }`}>{jobs.author.name}</Text>
+               <Button onClick={(event) => {event.preventDefault (); window.open (jobs.link)}} size="xs" className={`p-2 mb-2 mt-2 ml-5  text-white  ${darkMode ? 'bg-orange-500' : 'bg-colorAzul' }` }>
+                 Toda la Información
+               </Button>
+               <Button onClick={agendar} size="xs" className={`p-2 mb-2 mt-2 ml-5 text-white  ${darkMode ? 'bg-orange-500 hover:bg-colorAzul' : 'bg-colorAzul hover:bg-orange-500' }` }>
+                 Agendar Entrevista
+               </Button>
+             </div>
+           </div>
+       </div>
+      )}
+  
       <Tab.Group>
         <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
           {Object.keys(ofertas).map((category) => (

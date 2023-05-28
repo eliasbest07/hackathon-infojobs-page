@@ -73,7 +73,7 @@ export default function Cards( { etiqueta,darkMode, showCalendar, search ,clickS
             isRtl={false}
             isSearchable={true}
             options={optionsProv}
-            placeholder="Categorías"
+            placeholder="Localidad"
             />
           </div>
         </Card>
@@ -98,7 +98,9 @@ export default function Cards( { etiqueta,darkMode, showCalendar, search ,clickS
         <Text className={`ml-3 mt-5  ${darkMode ? 'text-white' : 'text-black-300' }`}>{etiqueta}</Text>
         <Bold className={`ml-3 mt-1 text-inf ${darkMode ? 'text-white' : 'text-black-300' }`}>3 candidaturas activas</Bold>
         <Text className={`ml-3 mt-1 text-inf ${darkMode ? 'text-white' : 'text-black-300' }`}>Hay novedades en tus candidaturas</Text>
-        <Text className={`ml-3 mt-1 text-inf ${darkMode ? 'text-white' : 'text-black-300' }`}>Ir a Candidaturas</Text>
+        <a  href={"#"} className={`ml-3 mt-1 text-inf ${darkMode ? 'text-blue-500 hover:text-orange-500' : 'text-orange-500  hover:border-bottom-blue'  }`}>Ir a Candidaturas</a>
+        {/* <a title="Ir a Candidaturas" >Ir a Candidaturas</a> */}
+{/* <a title="Ir a Candidaturas" href="/candidate/applications/list.xhtml" class="ij-Link ij-BaseTypography ij-BaseTypography-link ij-Text ij-Text-body1">Ir a Candidaturas</a> */}
         </Card>
       ) : null }
     </>
