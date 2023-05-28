@@ -88,7 +88,7 @@ export default function Cards( { etiqueta,darkMode, showCalendar, search ,clickS
         </Button>
         </div>
         <div className="max-w-sm mx-auto space-y-6 pl-1 pr-1 mr-1 ml-1 pt-3">
-            <TextInput onChange={search} className="p-3" placeholder=" Puesto, empresa o palabra clave" />
+            <TextInput onChange={search} className="p-3 text-black" placeholder=" Puesto, empresa o palabra clave" />
         </div>
         </Card>
       ) : null }
