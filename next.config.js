@@ -3,5 +3,6 @@ module.exports = {
     reactStrictMode: true,
     images: {
       domains: ['firebasestorage.googleapis.com','multimedia.infojobs.net'],
+      unoptimized: true,
     },
   }
